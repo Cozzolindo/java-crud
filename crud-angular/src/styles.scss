@@ -1,12 +1,33 @@
 /* You can add global styles to this file, and also import other style files */
 @use '@angular/material' as mat;
+// // Customize the entire app. Change :root to your selector if you want to scope the styles.
+// :root {
+//   @include mat.toolbar-overrides((
+//     container-background-color: #141d49,
+//     container-text-color: #f2b9c5,
 
-// Customize the entire app. Change :root to your selector if you want to scope the styles.
-:root {
-  @include mat.toolbar-overrides((
-    container-background-color: #141d49,
-    container-text-color: #f2b9c5,
-  ));
+//   ));
+// }
+
+@use './custom-theme.scss' as custom-theme;
+@include mat.all-component-themes(custom-theme.$app-theme);
+
+@font-face {
+  font-family: "MyGothic";
+  src: url('./assets/fonts/NaxrsoulCather-E4PWe.ttf') format('truetype');
+  font-family: "Tobec";
+  src: url('./assets/fonts/Tobec___.ttf') format('truetype');
 }
+
+html, body { height: 100%; }
+
+body,
+
+h1{
+  margin: 0;
+  font-family: "Tobec";
+  font-size: xx-large;
+}
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
