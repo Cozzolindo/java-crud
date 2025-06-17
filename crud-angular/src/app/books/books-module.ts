@@ -1,7 +1,8 @@
 //PARA CRIAR MODULO E SEU ROTEAMENTO UTILIZAMOS O COMANDO NG G M <NAME> --ROUTING
 
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { MatTableModule } from '@angular/material/table';
 import { BooksRoutingModule } from './books-routing-module';
 
 
@@ -9,7 +10,8 @@ import { BooksRoutingModule } from './books-routing-module';
   declarations: [ ],
   imports: [
     CommonModule,
-    BooksRoutingModule
+    BooksRoutingModule,
+    MatTableModule
   ]
 })
 export class BooksModule { }
