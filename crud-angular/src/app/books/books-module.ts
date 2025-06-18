@@ -2,9 +2,8 @@
 
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { MatTableModule } from '@angular/material/table';
 import { BooksRoutingModule } from './books-routing-module';
-import {MatCardModule} from '@angular/material/card';
+import { AppMaterialModule } from '../shared/app-material/app-material-module';
 
 
 @NgModule({
@@ -12,8 +11,7 @@ import {MatCardModule} from '@angular/material/card';
   imports: [
     CommonModule,
     BooksRoutingModule,
-    MatTableModule,
-    MatCardModule
+    AppMaterialModule
   ]
 })
 export class BooksModule { }
