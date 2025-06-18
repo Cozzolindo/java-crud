@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AppMaterialModule } from '../../shared/app-material/app-material-module';
 import { Books } from '../model/books';
+import { BooksServices } from '../services/books_services';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
   selector: 'app-titles',
@@ -9,12 +11,26 @@ import { Books } from '../model/books';
   styleUrl: './titles.scss'
 })
 
-export class Titles {
+export class Titles implements OnInit {
 
-  titles: Books[];
+  //booksServices: BooksServices;
+
+  titles: Observable <Books[]>;
   displayedColumns = ['name', 'type'];
-  constructor(){
-    this.titles = [{id:'1', name:'Goodbye, Eri', type:'Manga'}];
+
+  constructor(private booksServices: BooksServices){
+
+  //this.booksServices = new BooksServices();
+  this.titles = this.booksServices.getBookList();
   }
+
+  ngOnInit(): void {
+    // Initialization logic goes here
+    console.log('Starting On Daddy');
+
+  }
+
+
+
 
 }
