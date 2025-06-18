@@ -12,9 +12,8 @@
   src: url('./assets/fonts/Tobec___.ttf') format('truetype');
 }
 
-html, body { height: 100%; }
 
-body,
+body { height: 100%; }
 
 h1{
   margin: 0;
@@ -22,5 +21,9 @@ h1{
   font-size: xx-large;
 }
 
-html, body { height: 100%; }
-//body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+:root {
+  @include mat.toolbar-overrides((
+    container-background-color: #dabbf3,
+    container-text-color: #920022,
+  ));
+}

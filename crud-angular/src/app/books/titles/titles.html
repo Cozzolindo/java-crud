@@ -1,21 +1,28 @@
-<table mat-table [dataSource]="titles" class="mat-elevation-z8">
+<mat-card class="example-card" appearance="outlined">
+  <mat-toolbar background:#cfc2d4>Bookshelf</mat-toolbar>
+  <mat-card-header>
 
-  <!--- Note that these columns can be defined in any order.
-        The actual rendered columns are set as a property on the row definition" -->
 
-  <!-- Position Column -->
-  <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef> Title </th>
-    <td mat-cell *matCellDef="let title"> {{title.name}} </td>
-  </ng-container>
 
-  <!-- Name Column -->
-  <ng-container matColumnDef="type">
-    <th mat-header-cell *matHeaderCellDef> Genre </th>
-    <td mat-cell *matCellDef="let title"> {{title.type}} </td>
-  </ng-container>
+    <table mat-table [dataSource]="titles" class="mat-elevation-z8">
 
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
+      <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
 
+      <!-- Position Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Title </th>
+        <td mat-cell *matCellDef="let title"> {{title.name}} </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="type">
+        <th mat-header-cell *matHeaderCellDef> Genre </th>
+        <td mat-cell *matCellDef="let title"> {{title.type}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </mat-card-header>
+</mat-card>
