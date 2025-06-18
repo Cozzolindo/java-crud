@@ -13,7 +13,7 @@ export class Titles {
   titles: Books[];
   displayedColumns = ['name', 'type'];
   constructor(){
-    this.titles = []
+    this.titles = [{id:'1', name:'Goodbye, Eri', type:'Manga'}];
   }
 
 }
