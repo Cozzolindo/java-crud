@@ -1,6 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { Books } from '../model/books';
 import { HttpClient } from '@angular/common/http';
+import { delay, first, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,9 @@ export class BooksServices {
 
   getBookList(){
     const url="http://localhost:3000/books";
-    return this.httpClient.get<Books[]>(url);
+    return this.httpClient.get<Books[]>(url)
+    .pipe(first(),
+    delay(15000),
+    tap(titles => console.log(titles)));
   }
 }

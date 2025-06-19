@@ -24,6 +24,9 @@ h1{
 :root {
   @include mat.toolbar-overrides((
     container-background-color: #D4AF37,
-    container-text-color: #2d0050,
+    container-text-color: #2d0050
+  ));
+  @include mat.progress-spinner-overrides((
+    active-indicator-color: #2d0050,
   ));
 }

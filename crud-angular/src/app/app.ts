@@ -5,9 +5,14 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterOutlet } from '@angular/router';
 import { Titles } from './books/titles/titles';
 
+
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, MatToolbarModule, MatIconModule, Titles, HttpClientModule],
+  imports: [RouterOutlet,
+    MatToolbarModule,
+    MatIconModule,
+    Titles
+    ],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })

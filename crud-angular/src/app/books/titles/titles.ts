@@ -15,13 +15,13 @@ export class Titles implements OnInit {
 
   //booksServices: BooksServices;
 
-  titles: Observable <Books[]>;
+  titles$: Observable <Books[]>;
   displayedColumns = ['name', 'type'];
 
   constructor(private booksServices: BooksServices){
 
   //this.booksServices = new BooksServices();
-  this.titles = this.booksServices.getBookList();
+  this.titles$ = this.booksServices.getBookList();
   }
 
   ngOnInit(): void {
