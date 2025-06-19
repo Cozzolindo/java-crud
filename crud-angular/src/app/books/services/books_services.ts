@@ -16,7 +16,7 @@ export class BooksServices {
     const url="http://localhost:3000/books";
     return this.httpClient.get<Books[]>(url)
     .pipe(first(),
-    delay(15000),
+    //delay(15000),
     tap(titles => console.log(titles)));
   }
 }

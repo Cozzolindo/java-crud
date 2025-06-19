@@ -2,8 +2,9 @@
 
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { BooksRoutingModule } from './books-routing-module';
 import { AppMaterialModule } from '../shared/app-material/app-material-module';
+import { SharedModule } from '../shared/shared-module';
+import { BooksRoutingModule } from './books-routing-module';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { AppMaterialModule } from '../shared/app-material/app-material-module';
   imports: [
     CommonModule,
     BooksRoutingModule,
-    AppMaterialModule
+    AppMaterialModule,
+    SharedModule
   ]
 })
 export class BooksModule { }
