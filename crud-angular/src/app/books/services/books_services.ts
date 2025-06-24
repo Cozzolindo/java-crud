@@ -13,7 +13,7 @@ export class BooksServices {
   constructor(private httpClient: HttpClient ) { }
 
   getBookList(){
-    const url="http://localhost:3000/books";
+    const url="api/books";
     return this.httpClient.get<Books[]>(url)
     .pipe(first(),
     //delay(15000),

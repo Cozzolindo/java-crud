@@ -6,10 +6,11 @@ import { Observable } from 'rxjs/internal/Observable';
 import { catchError, delay, of, retry } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorHandling } from '../../shared/components/error-handling/error-handling';
+import { RouterModule, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-titles',
-  imports: [AppMaterialModule],
+  imports: [AppMaterialModule, RouterModule, RouterOutlet],
   templateUrl: './titles.html',
   styleUrl: './titles.scss'
 })
@@ -19,11 +20,12 @@ export class Titles implements OnInit {
   //booksServices: BooksServices;
 
   titles$: Observable <Books[]>;
-  displayedColumns = ['name', 'type'];
+  displayedColumns = ['name', 'type', 'actions'];
 
   constructor(
     private booksServices: BooksServices,
     public dialog: MatDialog
+    //private router: Router
   ){
 
     //this.booksServices = new BooksServices();
@@ -41,6 +43,7 @@ export class Titles implements OnInit {
       data: errorMsg
     });
   }
+
   ngOnInit(): void {
     // Initialization logic goes here
     console.log('Starting On Daddy');

@@ -1,3 +1,12 @@
+@use '@angular/material' as mat;
+
+@font-face {
+  font-family: "MyGothic";
+  src: url('../../../assets/fonts/NaxrsoulCather-E4PWe.ttf') format('truetype');
+  font-family: "Tobec";
+  src: url('../../../assets/fonts/Tobec___.ttf') format('truetype');
+}
+
 table {
   width: 100%;
 }
@@ -8,6 +17,14 @@ table {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.crimsomRed{
+  color: #B22222;
+}
+
+.goldenWind{
+  color: #D4AF37;
 }
 
 
