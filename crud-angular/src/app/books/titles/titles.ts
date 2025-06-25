@@ -3,14 +3,14 @@ import { AppMaterialModule } from '../../shared/app-material/app-material-module
 import { Books } from '../model/books';
 import { BooksServices } from '../services/books_services';
 import { Observable } from 'rxjs/internal/Observable';
-import { catchError, delay, of, retry } from 'rxjs';
+import { catchError, of} from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorHandling } from '../../shared/components/error-handling/error-handling';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-titles',
-  imports: [AppMaterialModule, RouterModule, RouterOutlet],
+  imports: [AppMaterialModule, RouterModule],
   templateUrl: './titles.html',
   styleUrl: './titles.scss'
 })
@@ -23,12 +23,12 @@ export class Titles implements OnInit {
   displayedColumns = ['name', 'type', 'actions'];
 
   constructor(
-    private booksServices: BooksServices,
+    private readonly booksServices: BooksServices,
     public dialog: MatDialog
     //private router: Router
   ){
 
-    //this.booksServices = new BooksServices();
+
     this.titles$ = this.booksServices.getBookList()
     .pipe(
       catchError(error =>{

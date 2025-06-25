@@ -4,6 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { Titles } from './books/titles/titles';
+import { SharedModule } from './shared/shared-module';
 
 
 @Component({
@@ -12,7 +13,8 @@ import { Titles } from './books/titles/titles';
     RouterModule,
     MatToolbarModule,
     MatIconModule,
-    Titles
+    Titles,
+    SharedModule
     ],
   templateUrl: './app.html',
   styleUrl: './app.scss'
