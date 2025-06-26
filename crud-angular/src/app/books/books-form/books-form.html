@@ -11,18 +11,19 @@
       </mat-form-field>
 
       <mat-form-field class="full-width">
-        <input matInput placeholder="Ex: Manga" formControlName="type" />
+        <mat-label>Genre</mat-label>
+        <mat-select formControlName="type" name="food">
+        @for (genre of genres; track genre) {
+        <mat-option value="genre.value">{{genre.viewValue}}</mat-option>
+      }
+    </mat-select>
       </mat-form-field>
     </form>
   </mat-card-content>
   <div class="form-actions">
     <mat-card-actions >
-      <button matButton="filled">Add</button>
+      <button matButton="filled" (click)="onSubmit()">Add</button>
       <button matButton="outlined">Cancel</button>
     </mat-card-actions>
   </div>
-
-  <!-- <mat-card-footer>
-    <mat-toolbar class="goldenWind" style="height: 5px; min-height: 5px;"> </mat-toolbar>
-  </mat-card-footer> -->
 </mat-card>

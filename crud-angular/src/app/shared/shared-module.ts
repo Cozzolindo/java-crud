@@ -6,6 +6,8 @@ import { ErrorHandling } from './components/error-handling/error-handling';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 
 
 
@@ -18,7 +20,9 @@ import { MatSelectModule } from '@angular/material/select';
     MatFormFieldModule,
     ReactiveFormsModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
+    MatSnackBarModule
+
   ],
   exports: [ErrorHandling,
     MatFormFieldModule,
