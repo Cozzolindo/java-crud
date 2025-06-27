@@ -7,10 +7,11 @@ import { catchError, of} from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorHandling } from '../../shared/components/error-handling/error-handling';
 import { RouterModule } from '@angular/router';
+import { BooksList } from "../books-list/books-list";
 
 @Component({
   selector: 'app-titles',
-  imports: [AppMaterialModule, RouterModule],
+  imports: [AppMaterialModule, RouterModule, BooksList],
   templateUrl: './titles.html',
   styleUrl: './titles.scss'
 })
@@ -20,7 +21,7 @@ export class Titles implements OnInit {
   //booksServices: BooksServices;
 
   titles$: Observable <Books[]>;
-  displayedColumns = ['name', 'type', 'actions'];
+
 
   constructor(
     private readonly booksServices: BooksServices,

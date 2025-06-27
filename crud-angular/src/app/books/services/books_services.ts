@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Books } from '../model/books';
 import { HttpClient } from '@angular/common/http';
-import { first, tap } from 'rxjs';
+import { delay, first, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +16,7 @@ export class BooksServices {
     const url="api/books";
     return this.httpClient.get<Books[]>(url)
     .pipe(first(),
+    delay(3000), //delay applied for testing mat-spinner
     tap(titles => console.log(titles)));
   }
 

@@ -1,0 +1,39 @@
+<mat-table [dataSource]="titles">
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef> Title </mat-header-cell>
+          <mat-cell *matCellDef="let title"> {{title.name}}</mat-cell>
+        </ng-container>
+
+        <!-- Genre Column -->
+        <ng-container matColumnDef="type">
+          <mat-header-cell *matHeaderCellDef> Genre </mat-header-cell>
+          <mat-cell *matCellDef="let title"> {{title.type}} </mat-cell>
+        </ng-container>
+
+        <!-- Actions Column -->
+        <ng-container matColumnDef="actions">
+          <mat-header-cell *matHeaderCellDef class="action-column-add">
+            <button matMiniFab aria-label="Add a new book">
+              <mat-icon routerLink="/new">add</mat-icon>
+            </button>
+
+          </mat-header-cell>
+
+          <mat-cell *matCellDef="let title" class="action-column-add">
+            <button matIconButton   aria-label="Edit a book">
+              <mat-icon>edit</mat-icon>
+            </button>
+
+          <button matIconButton aria-label="Delete a book">
+              <mat-icon class="crimsomRed">delete</mat-icon>
+            </button>
+          </mat-cell>
+
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+      </mat-table>
