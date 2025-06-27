@@ -5,16 +5,16 @@
   </mat-card-header>
   <mat-toolbar class="goldenWind" style="height: 25px; min-height: 25px;"> </mat-toolbar>
   <mat-card-content class="form-container">
-    <form [formGroup]="form">
+    <form [formGroup]="form" class="min-width">
       <mat-form-field class="full-width">
         <input matInput placeholder="Ex: DanDaDan" formControlName="name" />
       </mat-form-field>
 
       <mat-form-field class="full-width">
         <mat-label>Genre</mat-label>
-        <mat-select formControlName="type" name="food">
+        <mat-select formControlName="type">
         @for (genre of genres; track genre) {
-        <mat-option value="genre.value">{{genre.viewValue}}</mat-option>
+        <mat-option [value]="genre.value">{{genre.viewValue}}</mat-option>
       }
     </mat-select>
       </mat-form-field>
@@ -23,7 +23,7 @@
   <div class="form-actions">
     <mat-card-actions >
       <button matButton="filled" (click)="onSubmit()">Add</button>
-      <button matButton="outlined">Cancel</button>
+      <button matButton="outlined" (click)="onCancel()">Cancel</button>
     </mat-card-actions>
   </div>
 </mat-card>

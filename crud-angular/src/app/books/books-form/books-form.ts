@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { SharedModule } from '../../shared/shared-module';
 import { BooksServices } from '../services/books_services';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Location } from '@angular/common';
 
 interface Genre {
     value: string;
@@ -26,20 +27,24 @@ export class BooksForm implements OnInit{
 
   genres: Genre[] = [
     { value: '', viewValue: '' }, // Null/empty option
-    { value: 'manga', viewValue: 'Manga' },
-    { value: 'horror', viewValue: 'Horror' },
-    { value: 'fantasy', viewValue: 'Fantasy' },
-    { value: 'sci-fi', viewValue: 'Sci-Fi' },
-    { value: 'romance', viewValue: 'Romance' },
-    { value: 'mystery', viewValue: 'Mystery' },
-    { value: 'non-fiction', viewValue: 'Non-Fiction' },
-    { value: 'biography', viewValue: 'Biography' },
-    { value: 'adventure', viewValue: 'Adventure' },
-    { value: 'history', viewValue: 'History' }
+    { value: 'Manga', viewValue: 'Manga' },
+    { value: 'Horror', viewValue: 'Horror' },
+    { value: 'Fantasy', viewValue: 'Fantasy' },
+    { value: 'Sci-Fi', viewValue: 'Sci-Fi' },
+    { value: 'Romance', viewValue: 'Romance' },
+    { value: 'Mystery', viewValue: 'Mystery' },
+    { value: 'Non-fiction', viewValue: 'Non-Fiction' },
+    { value: 'Biography', viewValue: 'Biography' },
+    { value: 'Adventure', viewValue: 'Adventure' },
+    { value: 'History', viewValue: 'History' }
   ];
 
 
-  constructor(private readonly formBuilder: FormBuilder, private readonly service: BooksServices) {
+  constructor(
+    private readonly formBuilder: FormBuilder,
+    private readonly service: BooksServices,
+    private readonly location: Location
+  ) {
     this.form = this.formBuilder.group( {
       name: [null],
       type: [null]
@@ -55,12 +60,21 @@ export class BooksForm implements OnInit{
 
   onSubmit() {
     this.service.save(this.form.value).subscribe({
-      next: result => console.log('Book saved successfully:', result),
+      next: result => this.onSuccess(),
       error: error => this.onError()
     });
   }
 
+  onCancel() {
+    this.location.back();
+  }
+
   private onError() {
-    return this.snackBar.open('Failed to save book', '', {duration: 5000});
+    this.snackBar.open('Failed to save book', '', {duration: 5000});
+  }
+
+  private onSuccess() {
+    this.snackBar.open('Book saved successfully', '', {duration: 5000});
+    this.onCancel();
   }
 }

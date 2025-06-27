@@ -1,5 +1,7 @@
 package com.carlos.crud_spring.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,6 +15,7 @@ public class Books {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
+  @JsonProperty("id")
   private Long id;
 
   @Column(name = "Name", nullable = false, length = 200)
