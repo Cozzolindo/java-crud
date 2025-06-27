@@ -22,8 +22,9 @@
   </mat-card-content>
   <div class="form-actions">
     <mat-card-actions >
-      <button matButton="filled" (click)="onSubmit()">Add</button>
+      <button matButton="filled" (click)="onSubmit()" [disabled]="form.invalid">Add</button>
       <button matButton="outlined" (click)="onCancel()">Cancel</button>
     </mat-card-actions>
   </div>
 </mat-card>
+

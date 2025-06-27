@@ -1,7 +1,7 @@
 import { Component, inject, OnInit   } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AppMaterialModule } from '../../shared/app-material/app-material-module';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { SharedModule } from '../../shared/shared-module';
 import { BooksServices } from '../services/books_services';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -41,21 +41,20 @@ export class BooksForm implements OnInit{
 
 
   constructor(
-    private readonly formBuilder: FormBuilder,
+    private readonly formBuilder: NonNullableFormBuilder,
     private readonly service: BooksServices,
     private readonly location: Location
   ) {
     this.form = this.formBuilder.group( {
-      name: [null],
-      type: [null]
+      name: ['', [Validators.required, Validators.pattern(/\S+/)]],
+      type: ['', [Validators.required, Validators.pattern(/\S+/)]]
     })
   }
 
   ngOnInit(): void {
 
     // Initialization logic goes here
-    console.log('Starting On Mommy');
-
+    console.log('Starting On BooksForm');
   }
 
   onSubmit() {

@@ -1,6 +1,5 @@
 package com.carlos.crud_spring.controller;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
