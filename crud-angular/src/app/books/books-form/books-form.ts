@@ -1,4 +1,4 @@
-import { Component, inject, OnInit   } from '@angular/core';
+import { Component, inject, Input, OnInit   } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AppMaterialModule } from '../../shared/app-material/app-material-module';
 import { FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
@@ -22,10 +22,16 @@ interface Genre {
 
 export class BooksForm implements OnInit{
 
+  @Input() id?: string;
+
   form: FormGroup;
 
-  private readonly snackBar = inject(MatSnackBar);
 
+  private readonly snackBar = inject(MatSnackBar);
+  isEditMode = false;
+
+  // Define the genres for the select dropdown
+  // This can be extended or modified as needed
   genres: Genre[] = [
     { value: '', viewValue: '' }, // Null/empty option
     { value: 'Manga', viewValue: 'Manga' },
@@ -53,28 +59,57 @@ export class BooksForm implements OnInit{
   }
 
   ngOnInit(): void {
+  this.isEditMode = !!this.id;
 
-    // Initialization logic goes here
-    console.log('Starting On BooksForm');
+  if (this.isEditMode && this.id) {
+    this.onEdit(this.id);
   }
+
+  console.log('Starting On BooksForm');
+}
 
   onSubmit() {
-    this.service.save(this.form.value).subscribe({
-      next: result => this.onSuccess(),
-      error: error => this.onError()
-    });
+
+    if(this.isEditMode && this.id){
+      this.service.update(this.id, this.form.value).subscribe({
+        next: result => this.onSuccess(),
+        error: error => this.onError()
+      });
+    }else{
+      this.service.save(this.form.value).subscribe({
+        next: result => this.onSuccess(),
+        error: error => this.onError()
+      });
+    }
+
   }
 
+  // Cancel the form and go back
   onCancel() {
     this.location.back();
   }
 
+  // Show snackbar when there is an error
   private onError() {
     this.snackBar.open('Failed to save book', '', {duration: 5000});
   }
 
+  // Show snackbar when the book is saved successfully
   private onSuccess() {
     this.snackBar.open('Book saved successfully', '', {duration: 5000});
     this.onCancel();
+  }
+
+  // Check if the form is in edit mode and load the book data if it is
+  private onEdit(id: string) {
+    this.service.getBookById(id).subscribe({
+      next: book => {
+        this.form.patchValue({
+          name: book.name,
+          type: book.type
+        });
+      },
+      error: error => console.error('Error loading book:', error)
+    });
   }
 }

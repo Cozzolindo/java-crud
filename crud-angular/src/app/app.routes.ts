@@ -4,11 +4,15 @@ import { Titles } from './books/titles/titles';
 
 export const routes: Routes = [
   {
-    path: 'home',
+    path: '',
     component: Titles
   },
   {
     path: 'new',
+    component: BooksForm
+  },
+  {
+    path: 'edit/:id',
     component: BooksForm
   }
 ];
