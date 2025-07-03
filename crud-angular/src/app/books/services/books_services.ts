@@ -32,6 +32,11 @@ export class BooksServices {
     return this.httpClient.put<Books>(`${this.API}/${id}`, record);
   }
 
+  // Delete a book by its ID
+  delete(id: string){
+    return this.httpClient.delete(`${this.API}/${id}`);
+  }
+
   //Get a book by its ID
   getBookById(id: string): Observable<Books> {
 

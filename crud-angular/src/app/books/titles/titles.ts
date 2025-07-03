@@ -45,6 +45,10 @@ export class Titles implements OnInit {
     });
   }
 
+  refreshBooks() {
+  this.titles$ = this.booksServices.getBookList();
+}
+
   ngOnInit(): void {
     // Initialization logic goes here
     console.log('Starting On Daddy');

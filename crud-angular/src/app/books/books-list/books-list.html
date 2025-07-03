@@ -26,8 +26,8 @@
               <mat-icon [routerLink]="['/edit', title.id]">edit</mat-icon>
             </button>
 
-          <button matIconButton aria-label="Delete a book">
-              <mat-icon class="crimsomRed">delete</mat-icon>
+          <button matIconButton aria-label="Delete a book" (click)="onDelete(title)">
+              <mat-icon class="crimsomRed" >delete</mat-icon>
             </button>
           </mat-cell>
 
