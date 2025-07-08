@@ -20,16 +20,21 @@ export class Titles implements OnInit {
 
   //booksServices: BooksServices;
 
+  // Observable to hold the list of book titles
+  // This will be used in the template to display the book titles
   titles$: Observable <Books[]>;
 
 
   constructor(
+    // Injecting the BooksServices to fetch book data
+    // and MatDialog for error handling dialogs
     private readonly booksServices: BooksServices,
     public dialog: MatDialog
     //private router: Router
   ){
 
-
+  // Initializing the titles$ observable with the book list
+  // The getBookList method returns an observable that emits the list of books
     this.titles$ = this.booksServices.getBookList()
     .pipe(
       catchError(error =>{
@@ -39,15 +44,19 @@ export class Titles implements OnInit {
     );
   }
 
+  // Method to handle errors and open a dialog with the error message
+  // This method is called when there is an error fetching the book list
   onError(errorMsg: string) {
     this.dialog.open(ErrorHandling, {
       data: errorMsg
     });
   }
 
+  // Method to refresh the book list
+  // This method is called to re-fetch the book list from the service
   refreshBooks() {
-  this.titles$ = this.booksServices.getBookList();
-}
+    this.titles$ = this.booksServices.getBookList();
+  }
 
   ngOnInit(): void {
     // Initialization logic goes here

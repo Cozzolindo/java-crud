@@ -1,0 +1,36 @@
+.dialog-container {
+  text-align: center;
+  padding: 20px;
+}
+
+.dialog-icon {
+  margin-bottom: 16px;
+}
+
+.dialog-icon mat-icon {
+  font-size: 48px;
+  width: 48px;
+  height: 48px;
+  color: #B22222; /* Crimson Red */
+}
+
+h2 {
+  margin-bottom: 16px;
+  color: #333;
+}
+
+.warning-text {
+  color: #D4AF37; /* Golden Wind */
+  font-weight: bold;
+  font-style: italic;
+  margin-top: 8px;
+}
+
+mat-dialog-actions {
+  gap: 12px;
+  margin-top: 20px;
+}
+
+button {
+  min-width: 80px;
+}
