@@ -47,10 +47,8 @@ public class BooksController {
 
   // Endpoint to get a book by ID
   @GetMapping("/{id}")
-  public ResponseEntity<Books> findBooksById(@PathVariable @NotNull @Positive Long id){
-    return booksService.findBooksById(id)
-    .map(recordFound -> ResponseEntity.ok().body(recordFound))
-    .orElse(ResponseEntity.notFound().build());
+  public Books findBooksById(@PathVariable @NotNull @Positive Long id){
+    return booksService.findBooksById(id);
   }
 
   // Endpoint to create a new book
@@ -63,20 +61,15 @@ public class BooksController {
 
   // Endpoint to update a book
   @PutMapping("/{id}")
-  public ResponseEntity<Books> update(@PathVariable Long id, @RequestBody Books book){
-    return booksService.update(id, book)
-      .map(recordFound -> ResponseEntity.ok().body(recordFound))
-      .orElse(ResponseEntity.notFound().build());
+  public Books update(@PathVariable Long id, @RequestBody Books book){
+    return booksService.update(id, book);
   }
 
   // Endpoint to hard delete a book
   @DeleteMapping("/{id}")
-  public ResponseEntity<Void> delete(@PathVariable @NotNull @Positive Long id){
-    if(booksService.delete(id)){
-      return ResponseEntity.noContent().build();
-    }else{
-      return ResponseEntity.notFound().build();
-    }
+  @ResponseStatus(HttpStatus.NO_CONTENT)
+  public void delete(@PathVariable @NotNull @Positive Long id){
+    booksService.delete(id);
   }
 
 }

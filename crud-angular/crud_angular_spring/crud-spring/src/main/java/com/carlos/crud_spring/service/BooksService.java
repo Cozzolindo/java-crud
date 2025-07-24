@@ -1,12 +1,12 @@
 package com.carlos.crud_spring.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.carlos.crud_spring.exception.RecordNotFoundException;
 import com.carlos.crud_spring.model.Books;
 import com.carlos.crud_spring.repository.BooksRepository;
 
@@ -28,29 +28,25 @@ public class BooksService {
     return booksRepository.findAll();
   }
 
-  public Optional<Books> findBooksById(@NotNull @Positive Long id){
-    return booksRepository.findById(id);
+  public Books findBooksById(@NotNull @Positive Long id){
+    return booksRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(id));
   }
 
   public Books create(@Valid Books book) {
     return booksRepository.save(book);
   }
 
-    public Optional<Books> update(Long id, @RequestBody Books book){
+    public Books update(Long id, @RequestBody Books book){
     return booksRepository.findById(id)
       .map(recordFound -> {
         recordFound.setName(book.getName());
         recordFound.setType(book.getType());
         return booksRepository.save(recordFound);
-      });
+      }).orElseThrow(() -> new RecordNotFoundException(id));
   }
 
-    public boolean delete(@NotNull @Positive Long id){
-    return booksRepository.findById(id)
-      .map(recordFound -> {
-          booksRepository.deleteById(id);
-          return true;
-        })
-        .orElse(false);
+    public void delete(@NotNull @Positive Long id){
+      booksRepository.delete(booksRepository.findById(id)
+        .orElseThrow(() -> new RecordNotFoundException(id)));
   }
 }
