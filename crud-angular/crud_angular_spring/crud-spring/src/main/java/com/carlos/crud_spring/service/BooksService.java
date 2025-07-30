@@ -6,8 +6,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.carlos.crud_spring.dto.BooksDTO;
+import com.carlos.crud_spring.dto.mapper.BooksMapper;
 import com.carlos.crud_spring.exception.RecordNotFoundException;
-import com.carlos.crud_spring.model.Books;
 import com.carlos.crud_spring.repository.BooksRepository;
 
 import jakarta.validation.Valid;
@@ -19,29 +20,37 @@ import jakarta.validation.constraints.Positive;
 public class BooksService {
 
   private final BooksRepository booksRepository;
+  private final BooksMapper booksMapper;
 
-  public BooksService(BooksRepository booksRepository) {
+  public BooksService(BooksRepository booksRepository, BooksMapper booksMapper) {
     this.booksRepository = booksRepository;
+    this.booksMapper = booksMapper;
   }
 
-  public List<Books> booksList(){
-    return booksRepository.findAll();
+  public List<BooksDTO> booksList(){
+
+    return booksRepository.findAll()
+      .stream()
+      .map(booksMapper::toDTO) // :: equal to lambda expression booksMapper::toDTO
+      .toList(); // Java 16+ Stream.toList() returns an unmodifiable list
+      //.collect(Collectors.toList());
   }
 
-  public Books findBooksById(@NotNull @Positive Long id){
-    return booksRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(id));
+  public BooksDTO findBooksById(@NotNull @Positive Long id){
+    return booksRepository.findById(id).map(booksMapper::toDTO)
+    .orElseThrow(() -> new RecordNotFoundException(id));
   }
 
-  public Books create(@Valid Books book) {
-    return booksRepository.save(book);
+  public BooksDTO create(@Valid @NotNull BooksDTO book) {
+    return booksMapper.toDTO(booksRepository.save(booksMapper.toEntity(book)));
   }
 
-    public Books update(Long id, @RequestBody Books book){
+    public BooksDTO update(Long id, @RequestBody @Valid @NotNull BooksDTO book){
     return booksRepository.findById(id)
       .map(recordFound -> {
-        recordFound.setName(book.getName());
-        recordFound.setType(book.getType());
-        return booksRepository.save(recordFound);
+        recordFound.setName(book.name());
+        recordFound.setType(book.type());
+        return booksMapper.toDTO(booksRepository.save(recordFound));
       }).orElseThrow(() -> new RecordNotFoundException(id));
   }
 

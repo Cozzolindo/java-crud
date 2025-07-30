@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.carlos.crud_spring.model.Books;
+import com.carlos.crud_spring.dto.BooksDTO;
 import com.carlos.crud_spring.service.BooksService;
 
 import jakarta.validation.Valid;
@@ -40,27 +40,27 @@ public class BooksController {
 
   // Endpoint to get all books
   @GetMapping
-  public List<Books> booksList(){
+  public List<BooksDTO> booksList(){
     return booksService.booksList();
   }
 
   // Endpoint to get a book by ID
   @GetMapping("/{id}")
-  public Books findBooksById(@PathVariable @NotNull @Positive Long id){
+  public BooksDTO findBooksById(@PathVariable @NotNull @Positive Long id){
     return booksService.findBooksById(id);
   }
 
   // Endpoint to create a new book
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public Books create(@RequestBody @Valid Books book) {
+  public BooksDTO create(@RequestBody @Valid BooksDTO book) {
     return booksService.create(book);
   }
 
 
   // Endpoint to update a book
   @PutMapping("/{id}")
-  public Books update(@PathVariable Long id, @RequestBody Books book){
+  public BooksDTO update(@PathVariable Long id, @RequestBody @Valid BooksDTO book){
     return booksService.update(id, book);
   }
 
