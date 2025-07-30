@@ -3,6 +3,7 @@ package com.carlos.crud_spring.model;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
@@ -45,5 +46,6 @@ public class Books {
   @Size(min = 1, max = 15, message = "Book status must be between 1 and 15 characters")
   @Column(name = "Status", nullable = false, length = 15)
   @Pattern(regexp = "Available|Unavailable", message = "Book status must be either 'Available' or 'Unavailable'")
+  //Could use @JsonIgnore instead of the DTO to avoid exposing this field in the API
   private String status = "Available";
 }
