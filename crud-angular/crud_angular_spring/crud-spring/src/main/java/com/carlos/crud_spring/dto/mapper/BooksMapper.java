@@ -22,7 +22,27 @@ public class BooksMapper {
       book.setId(bookDTO.id());
     }
     book.setName(bookDTO.name());
-    book.setType(Genre.valueOf(bookDTO.type())); // Converts string to Genre enum
+    book.setType(convertGenre(bookDTO.type())); // Converts string to Genre enum
     return book;
+  }
+
+  public Genre convertGenre(String genre) {
+    if (genre == null || genre.isBlank()) {
+      return null;
+    }
+    return switch (genre){
+      case "Fiction" -> Genre.FICTION;
+      case "Non-Fiction" -> Genre.NON_FICTION;
+      case "Mystery" -> Genre.MYSTERY;
+      case "Fantasy" -> Genre.FANTASY;
+      case "Science Fiction" -> Genre.SCIENCE_FICTION;
+      case "Biography" -> Genre.BIOGRAPHY;
+      case "History" -> Genre.HISTORY;
+      case "Romance" -> Genre.ROMANCE;
+      case "Thriller" -> Genre.THRILLER;
+      case "Horror" -> Genre.HORROR;
+      case "Manga" -> Genre.MANGA;
+      default -> throw new IllegalArgumentException("Invalid genre: " + genre);
+    };
   }
 }

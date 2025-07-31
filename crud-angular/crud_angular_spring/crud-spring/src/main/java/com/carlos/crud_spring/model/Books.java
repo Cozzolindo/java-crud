@@ -4,20 +4,19 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import com.carlos.crud_spring.enums.Genre;
+import com.carlos.crud_spring.enums.Status;
 import com.carlos.crud_spring.enums.converters.ConverterGenre;
+import com.carlos.crud_spring.enums.converters.ConverterStatus;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 import lombok.Data;
@@ -45,10 +44,8 @@ public class Books {
   private Genre type;
 
   @NotNull
-  @NotBlank(message = "Book status cannot be empty")
-  @Size(min = 1, max = 15, message = "Book status must be between 1 and 15 characters")
   @Column(name = "Status", nullable = false, length = 15)
-  @Pattern(regexp = "Available|Unavailable", message = "Book status must be either 'Available' or 'Unavailable'")
   //Could use @JsonIgnore instead of the DTO to avoid exposing this field in the API
-  private String status = "Available";
+  @Convert(converter = ConverterStatus.class) // Use the Status converter to store enum as string
+  private Status status = Status.AVAILABLE;
 }
