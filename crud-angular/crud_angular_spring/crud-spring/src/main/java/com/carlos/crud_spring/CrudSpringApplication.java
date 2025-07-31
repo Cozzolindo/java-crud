@@ -5,6 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import com.carlos.crud_spring.enums.Genre;
 import com.carlos.crud_spring.model.Books;
 import com.carlos.crud_spring.repository.BooksRepository;
 
@@ -22,7 +23,7 @@ public class CrudSpringApplication {
 
       Books b = new Books();
       b.setName("JoJo: Steel Ball Run 01");
-      b.setType("Manga");
+      b.setType(Genre.MANGA);
       booksRepository.save(b);
     };
   }

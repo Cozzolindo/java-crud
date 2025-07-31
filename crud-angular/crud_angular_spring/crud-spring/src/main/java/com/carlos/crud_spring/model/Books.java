@@ -3,10 +3,15 @@ package com.carlos.crud_spring.model;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
+import com.carlos.crud_spring.enums.Genre;
+import com.carlos.crud_spring.enums.converters.ConverterGenre;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -35,10 +40,9 @@ public class Books {
   private String name;
 
   @NotNull
-  @NotBlank(message = "Book type cannot be empty")
-  @Size(min = 1, max = 10, message = "Book type must be between 1 and 10 characters")
   @Column(name = "Genre", nullable = false, length = 10)
-  private String type;
+  @Convert(converter = ConverterGenre.class) // Use the Genre converter to store enum as string
+  private Genre type;
 
   @NotNull
   @NotBlank(message = "Book status cannot be empty")

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.carlos.crud_spring.dto.BooksDTO;
 import com.carlos.crud_spring.dto.mapper.BooksMapper;
+import com.carlos.crud_spring.enums.Genre;
 import com.carlos.crud_spring.exception.RecordNotFoundException;
 import com.carlos.crud_spring.repository.BooksRepository;
 
@@ -49,7 +50,7 @@ public class BooksService {
     return booksRepository.findById(id)
       .map(recordFound -> {
         recordFound.setName(book.name());
-        recordFound.setType(book.type());
+        recordFound.setType(Genre.MANGA);
         return booksMapper.toDTO(booksRepository.save(recordFound));
       }).orElseThrow(() -> new RecordNotFoundException(id));
   }
