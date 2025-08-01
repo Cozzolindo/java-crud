@@ -2,18 +2,24 @@ package com.carlos.crud_spring.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.carlos.crud_spring.dto.BooksDTO;
+import com.carlos.crud_spring.dto.BooksPageDTO;
 import com.carlos.crud_spring.dto.mapper.BooksMapper;
 import com.carlos.crud_spring.exception.RecordNotFoundException;
+import com.carlos.crud_spring.model.Books;
 import com.carlos.crud_spring.repository.BooksRepository;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 
 @Service
 @Validated
@@ -27,13 +33,11 @@ public class BooksService {
     this.booksMapper = booksMapper;
   }
 
-  public List<BooksDTO> booksList(){
+  public BooksPageDTO booksList(@PositiveOrZero int pageNum, @Positive @Max(10) int pageSize) {
 
-    return booksRepository.findAll()
-      .stream()
-      .map(booksMapper::toDTO) // :: equal to lambda expression booksMapper::toDTO
-      .toList(); // Java 16+ Stream.toList() returns an unmodifiable list
-      //.collect(Collectors.toList());
+    Page<Books> booksPage = booksRepository.findAll(PageRequest.of(pageNum, pageSize));
+    List<BooksDTO> books = booksPage.get().map(booksMapper::toDTO).toList();
+    return new BooksPageDTO(books, booksPage.getTotalPages(), booksPage.getTotalElements());
   }
 
   public BooksDTO findBooksById(@NotNull @Positive Long id){

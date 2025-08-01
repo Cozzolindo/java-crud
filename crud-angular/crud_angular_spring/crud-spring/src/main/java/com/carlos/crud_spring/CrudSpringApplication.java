@@ -21,6 +21,13 @@ public class CrudSpringApplication {
     return args -> {
       booksRepository.deleteAll();
 
+      for(int i = 0; i<20; i++){
+        Books c = new Books();
+        c.setName("Senhor dos Anéis :" + i);
+        c.setType(Genre.FANTASY);
+        booksRepository.save(c);
+
+      }
       Books b = new Books();
       b.setName("JoJo: Steel Ball Run 01");
       b.setType(Genre.MANGA);

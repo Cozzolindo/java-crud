@@ -1,6 +1,5 @@
 package com.carlos.crud_spring.controller;
 
-import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
@@ -8,15 +7,19 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.carlos.crud_spring.dto.BooksDTO;
+import com.carlos.crud_spring.dto.BooksPageDTO;
 import com.carlos.crud_spring.service.BooksService;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,8 +43,9 @@ public class BooksController {
 
   // Endpoint to get all books
   @GetMapping
-  public List<BooksDTO> booksList(){
-    return booksService.booksList();
+  public BooksPageDTO booksList(@RequestParam(defaultValue = "0") @PositiveOrZero  int pageNum,
+        @RequestParam(defaultValue = "10") @Positive @Max(10) int pageSize) {
+    return booksService.booksList(pageNum, pageSize);
   }
 
   // Endpoint to get a book by ID
