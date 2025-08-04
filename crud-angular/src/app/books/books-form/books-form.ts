@@ -43,12 +43,13 @@ export class BooksForm implements OnInit{
     { value: 'Manga', viewValue: 'Manga' },
     { value: 'Horror', viewValue: 'Horror' },
     { value: 'Fantasy', viewValue: 'Fantasy' },
-    { value: 'Sci-Fi', viewValue: 'Sci-Fi' },
+    { value: 'Science Fiction', viewValue: 'Science Fiction' },
     { value: 'Romance', viewValue: 'Romance' },
     { value: 'Mystery', viewValue: 'Mystery' },
     { value: 'Non-fiction', viewValue: 'Non-Fiction' },
     { value: 'Biography', viewValue: 'Biography' },
-    { value: 'Adventure', viewValue: 'Adventure' },
+    { value: 'Thriller', viewValue: 'Thriller' },
+    { value: 'Fiction', viewValue: 'Fiction' },
     { value: 'History', viewValue: 'History' }
   ];
 
