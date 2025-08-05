@@ -23,9 +23,9 @@ public class CrudSpringApplication {
     return args -> {
       booksRepository.deleteAll();
 
-      for(int i = 0; i<20; i++){
+      for(int i = 0; i<24; i++){
         Books c = new Books();
-        c.setName("Senhor dos Anéis :" + i);
+        c.setName("JuJutsu Kaisen: " + i);
         c.setType(Genre.FANTASY);
         booksRepository.save(c);
 

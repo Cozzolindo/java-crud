@@ -44,7 +44,7 @@ public class BooksController {
   // Endpoint to get all books
   @GetMapping
   public BooksPageDTO booksList(@RequestParam(defaultValue = "0") @PositiveOrZero  int pageNum,
-        @RequestParam(defaultValue = "10") @Positive @Max(10) int pageSize) {
+        @RequestParam(defaultValue = "10") @Positive @Max(100) int pageSize) {
     return booksService.booksList(pageNum, pageSize);
   }
 

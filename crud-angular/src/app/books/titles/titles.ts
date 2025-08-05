@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AppMaterialModule } from '../../shared/app-material/app-material-module';
-import { Books } from '../model/books';
 import { BooksServices } from '../services/books_services';
 import { Observable } from 'rxjs/internal/Observable';
-import { catchError, of} from 'rxjs';
+import { catchError, of, tap} from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorHandling } from '../../shared/components/error-handling/error-handling';
 import { RouterModule } from '@angular/router';
 import { BooksList } from "../books-list/books-list";
+import { BooksPage } from '../model/books-page';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-titles',
@@ -22,7 +23,11 @@ export class Titles implements OnInit {
 
   // Observable to hold the list of book titles
   // This will be used in the template to display the book titles
-  titles$: Observable <Books[]>;
+  titles$: Observable <BooksPage> | null = null;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  pageIndex = 0; // Current page index for pagination
+  pageSize = 10; // Number of items per page
 
 
   constructor(
@@ -35,13 +40,7 @@ export class Titles implements OnInit {
 
   // Initializing the titles$ observable with the book list
   // The getBookList method returns an observable that emits the list of books
-    this.titles$ = this.booksServices.getBookList()
-    .pipe(
-      catchError(error =>{
-        this.onError('Erro ao carregar as informações');
-        return of ([])
-      })
-    );
+    this.refreshBooks();
   }
 
   // Method to handle errors and open a dialog with the error message
@@ -54,8 +53,18 @@ export class Titles implements OnInit {
 
   // Method to refresh the book list
   // This method is called to re-fetch the book list from the service
-  refreshBooks() {
-    this.titles$ = this.booksServices.getBookList();
+  refreshBooks(pageEvent: PageEvent = {pageIndex: 0, pageSize: 10, length: 0}) {
+    this.titles$ = this.booksServices.getBookList(pageEvent.pageIndex, pageEvent.pageSize)
+    .pipe(
+      tap(() => {
+        this.pageIndex = pageEvent.pageIndex;
+        this.pageSize = pageEvent.pageSize;
+      }),
+      catchError(error => {
+        this.onError('Error loading book list');
+        return of ({books: [], totalPages: 0, totalElements: 0} as BooksPage); // Return a default empty BooksPage object
+      })
+    );
   }
 
   ngOnInit(): void {

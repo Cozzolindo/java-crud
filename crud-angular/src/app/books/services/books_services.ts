@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Books } from '../model/books';
 import { HttpClient } from '@angular/common/http';
-import { delay, first, Observable, tap } from 'rxjs';
+import { first, Observable } from 'rxjs';
+import { BooksPage } from '../model/books-page';
 
 @Injectable({
   providedIn: 'root'
@@ -13,14 +14,12 @@ export class BooksServices {
   constructor(private readonly httpClient: HttpClient ) { }
 
   // Get the list of books
-  getBookList(){
+  getBookList(pageNum = 0, pageSize = 5): Observable<BooksPage> {
 
     // This method fetches the list of books from the API
     // It returns an observable that emits an array of Books objects
-    return this.httpClient.get<Books[]>(this.API)
-    .pipe(first(),
-    delay(3000), //delay applied for testing mat-spinner
-    tap(titles => console.log(titles)));
+    return this.httpClient.get<BooksPage>(this.API, { params: { pageNum, pageSize } })
+    .pipe(first());
   }
 
   // Save a new book record
