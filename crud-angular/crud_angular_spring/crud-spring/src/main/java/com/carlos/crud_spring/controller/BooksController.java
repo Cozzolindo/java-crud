@@ -70,7 +70,7 @@ public class BooksController {
 
   // Endpoint to hard delete a book
   @DeleteMapping("/{id}")
-  @ResponseStatus(HttpStatus.NO_CONTENT)
+  @ResponseStatus(code = HttpStatus.NO_CONTENT)
   public void delete(@PathVariable @NotNull @Positive Long id){
     booksService.delete(id);
   }

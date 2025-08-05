@@ -15,12 +15,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 @Entity
-@SQLDelete(sql = "UPDATE Books SET status = 'Unavailable' WHERE id = ?") // Update to mark as unavailable instead of deleting (Soft Delete)
+@Table(name = "books")
+@SQLDelete(sql = "UPDATE books SET status = 'Unavailable' WHERE id = ?") // Update to mark as unavailable instead of deleting (Soft Delete)
 @Where(clause = "status = 'Available'") // Only show available books
 public class Books {
 

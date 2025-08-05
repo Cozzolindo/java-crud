@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output, ViewChild } from '@angular/core';
 import { Books } from '../model/books';
 import { SharedModule } from '../../shared/shared-module';
 import { RouterModule } from '@angular/router';
@@ -6,6 +6,8 @@ import { BooksServices } from '../services/books_services';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmationDialog } from '../../shared/components/confirmation-dialog/confirmation-dialog';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-books-list',
@@ -15,16 +17,26 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class BooksList {
 
-  @Input() titles: Books[] = [];
+  @Input() set titles(data: Books[]) {
+    this.dataSource.data = data;
+  }
   @Output() refresh = new EventEmitter<void>(); // Event to trigger a refresh after deletion
 
+  @ViewChild(MatSort) sort!: MatSort;
+
   readonly displayedColumns = ['name', 'type', 'actions'];
+  dataSource = new MatTableDataSource<Books>([]);
 
   private readonly snackBar = inject(MatSnackBar);
   private readonly dialog = inject(MatDialog);
 
-  constructor(private readonly service: BooksServices) {}
+  constructor(private readonly service: BooksServices) {
 
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
+  }
   // Method to handle the deletion of a book
   onDelete(book: Books) {
 
@@ -62,3 +74,4 @@ export class BooksList {
     });
   }
 }
+

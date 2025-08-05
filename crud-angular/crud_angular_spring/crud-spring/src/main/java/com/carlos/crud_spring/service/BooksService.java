@@ -59,7 +59,7 @@ public class BooksService {
   }
 
     public void delete(@NotNull @Positive Long id){
-      booksRepository.delete(booksRepository.findById(id)
-        .orElseThrow(() -> new RecordNotFoundException(id)));
+    booksRepository.delete(booksRepository.findById(id)
+    .orElseThrow(() -> new RecordNotFoundException(id)));
   }
 }
