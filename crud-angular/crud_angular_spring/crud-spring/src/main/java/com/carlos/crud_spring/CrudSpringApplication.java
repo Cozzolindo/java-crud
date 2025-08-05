@@ -26,7 +26,7 @@ public class CrudSpringApplication {
       for(int i = 0; i<24; i++){
         Books c = new Books();
         c.setName("JuJutsu Kaisen: " + i);
-        c.setType(Genre.FANTASY);
+        c.setType(Genre.MANGA);
         booksRepository.save(c);
 
       }
