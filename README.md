@@ -5,21 +5,19 @@ Welcome to the **Java CRUD Library Management System**, a full-stack application
 
 It follows **clean architecture principles**, utilizes **DTOs**, **service layers**, and **Spring Data JPA** for database interactions. The frontend is powered by Angular, styled with Angular Material components for a responsive user interface.
 
-> 🚧 This project is still a work in progress — ongoing improvements are being made to features, performance, and design.
-
 ---
 
 ## ✨ Features
 
-- Full CRUD functionality for managing books
-- DTO implementation for clean API contracts
-- RESTful API architecture with Spring Boot
-- Data persistence using **Spring Data JPA** with H2 (development) or PostgreSQL (future support)
-- Enum persistence with **JPA converters**
-- Soft delete implementation using **Hibernate annotations**
-- Responsive UI built with **Angular + Angular Material**
-- Form validations on both frontend and backend
-- GitHub commits documented to show each development step
+<li>📖 Book Management: Add, view, edit, and delete books</li>
+<li>🔍 Search & Filter: Search books by name with real-time filtering</li>
+<li>📄 Pagination: Navigate through large collections with paginated results</li>
+<li>🎨 Material Design: Modern UI using Angular Material components</li>
+<li>📱 Responsive Design: Works on desktop and mobile devices</li>
+<li>⚡ Real-time Updates: Instant UI updates after operations</li>
+<li>🛡️ Error Handling: Comprehensive error handling with user-friendly messages</li>
+<li>🔄 Sorting: Sort books by name or genre</li>
+<li>✅ Confirmation Dialogs: Safe deletion with confirmation prompts</li>
 
 ---
 
@@ -33,12 +31,20 @@ It follows **clean architecture principles**, utilizes **DTOs**, **service layer
 - Lombok
 - Hibernate
 - Maven
+- Maven for dependency management
+- H2/MySQL database (configurable)
 
 ### Frontend
 - Angular
 - Angular Material
 - TypeScript
 - HTML/CSS
+- RxJS
+
+### Development Tools
+- Docker support
+- Angular CLI
+- Spring Boot DevTools
 
 ---
 
@@ -56,11 +62,19 @@ It follows **clean architecture principles**, utilizes **DTOs**, **service layer
    ./mvnw spring-boot:run
    ```
 
-3. Access the H2 database (if configured):
+3. Access the H2 database (if in test profile):
    ```
    http://localhost:8080/h2-console
    ```
+   OR
 
+   Access the MySQL database (if in dev profile):
+
+   Manual Docker Steup:
+    ```
+   docker compose up -d
+   ```
+   
 ---
 
 ### Frontend
@@ -87,22 +101,53 @@ It follows **clean architecture principles**, utilizes **DTOs**, **service layer
 
 ---
 
-## 🧪 Next Steps & TODO
+## 🎯 API Endpoints
 
-- ✅ Soft delete implementation
-- ✅ Enum conversion using JPA Converter
-- ✅ DTO mapping and separation of concerns
-- ⏳ Switch to PostgreSQL for production
-- ⏳ Add authentication and user roles
-- ⏳ Implement pagination and filtering
-- ⏳ Improve unit and integration test coverage
-- ⏳ Write detailed API documentation with Swagger/OpenAPI
-- ⏳ Add responsive design enhancements
+### Books API
 
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| ![GET](https://img.shields.io/badge/GET-blue) | `/api/books` | Get all books (paginated) |
+| ![GET](https://img.shields.io/badge/GET-blue) | `/api/books/{id}` | Get book by ID |
+| ![POST](https://img.shields.io/badge/POST-green) | `/api/books` | Create new book |
+| ![PUT](https://img.shields.io/badge/PUT-orange) | `/api/books/{id}` | Update existing book |
+| ![DELETE](https://img.shields.io/badge/DELETE-red) | `/api/books/{id}` | Delete book |
+| ![GET](https://img.shields.io/badge/GET-blue) | `/api/books?search={term}` | Search books by name |
+
+Query Parameters
+- page: Page number (0-based)
+- size: Page size (default: 10)
+- search: Search term for filtering
+- sortBy: Sort field (name, type)
+- sortDirection: Sort direction (asc, desc)
 ---
+## 🚧 Current Status
 
+### ✅ Completed Features
+- ![✓](https://img.shields.io/badge/✓-completed-green) Basic CRUD operations
+- ![✓](https://img.shields.io/badge/✓-completed-green) Angular Material UI
+- ![✓](https://img.shields.io/badge/✓-completed-green) Pagination
+- ![✓](https://img.shields.io/badge/✓-completed-green) Search functionality
+- ![✓](https://img.shields.io/badge/✓-completed-green) Sorting capabilities
+- ![✓](https://img.shields.io/badge/✓-completed-green) Error handling
+- ![✓](https://img.shields.io/badge/✓-completed-green) Confirmation dialogs
+- ![✓](https://img.shields.io/badge/✓-completed-green) Docker configuration
+- ![✓](https://img.shields.io/badge/✓-completed-green) Responsive design
+  
 ## 🤝 Contributing
 
+1. **Fork the repository**
+2. **Create a feature branch** (`git checkout -b feature/amazing-feature`)
+3. **Commit your changes** (`git commit -m 'Add some amazing feature'`)
+4. **Push to the branch** (`git push origin feature/amazing-feature`)
+5. **Open a Pull Request**
+
+### Development Guidelines
+- Follow Angular style guide
+- Use meaningful commit messages
+- Add tests for new features
+- Update documentation as needed
+  
 While this project is part of a personal learning journey, contributions, suggestions, and code reviews are welcome. Feel free to open issues or submit pull requests.
 
 ---
